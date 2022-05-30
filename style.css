@@ -55,6 +55,7 @@ form {
     height: 80vh;
     border-radius: 3.5px;
     border: 0;
+    padding: 1rem;
 }
 .input-area textarea:focus {
     outline: 0;
@@ -80,7 +81,7 @@ form button:hover {
 span.one-letter {
     font-weight: bold;
 }
-span.first-char {
+span.upper-char {
     font-weight: bold;
 }
 

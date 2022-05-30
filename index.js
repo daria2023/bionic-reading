@@ -14,38 +14,39 @@ form.addEventListener('submit',(e)=>{
 
 
 function transLetters (str) {
-    let strArr = str.split(' ');
+    let strArr = str.replace( /[\t\n\r]/gm, ' ').split(' ');
     strArr = strArr.map((word => {
         let wordArea = document.createElement('span');
+        if ( isNaN(+word)) { 
             
-        if(word.length === 1) {
-            wordArea.classList.add('one-letter');
-            wordArea.innerText = word + ' ';
-            
-        } else if(word.length === 2) {
-            wordArea.classList.add('two-letters');
-            let firstChar = document.createElement('span');
-            firstChar.classList.add('first-char');
-            firstChar.innerText = word[0];
-            wordArea.appendChild(firstChar);
+            if(word.length === 1) {
+                wordArea.classList.add('one-letter');
+                wordArea.innerText = word + ' ';
+                
+            } 
+            if(word.length >= 2) {
+                wordArea.classList.add('letters');
+                let upperChar = document.createElement('span');
+                let upperLen = Math.floor(word.length / 2);
+                upperLen = upperLen > 4 ? 4 : upperLen;
+                upperChar.classList.add('upper-char');
+                upperChar.innerText = word.slice(0,upperLen);
+                wordArea.appendChild(upperChar);
 
-            let restChar = document.createElement('span');
-            restChar.classList.add('rest-char');
-            restChar.innerText = word.slice(1) + ' ';
-            wordArea.appendChild(restChar);
+                let restChar = document.createElement('span');
+                restChar.classList.add('rest-char');
+                restChar.innerText = word.slice(upperLen) + ' ';
+                wordArea.appendChild(restChar);
+            }
+            
         } else {
-            wordArea.classList.add('letters');
-            let firstTwoChar = document.createElement('span');
-            firstTwoChar.classList.add('first-char');
-            firstTwoChar.innerText = word[0] + word [1];
-            wordArea.appendChild(firstTwoChar);
-
-            let restChar = document.createElement('span');
-            restChar.classList.add('rest-char');
-            restChar.innerText = word.slice(2) + ' ';
-            wordArea.appendChild(restChar);
+            wordArea.innerHTML = word + ' ';
+            wordArea.classList.add('upper-char');
         }
         output.appendChild(wordArea);
     })) 
 
 }
+
+
+ 
